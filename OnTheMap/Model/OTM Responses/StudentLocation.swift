@@ -9,20 +9,19 @@
 import Foundation
 
 struct StudentLocation: Codable {
-    //let objectId: String
-    //let uniqueKey: String //check
+    let objectId: String
+    //let uniqueKey: String
     let firstName: String
     let lastName: String
     let mapString: String
     let mediaURL: String
     let latitude: Double
     let longitude: Double
-    //let createdAt: String
-    //let updatedAt: String
-    //let ACL:
+    let createdAt: String
+    let updatedAt: String
         
 }
 
 struct Results: Codable {
-    let results: [StudentLocation]
+    var results: [StudentLocation]
 }

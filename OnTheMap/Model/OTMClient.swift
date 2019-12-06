@@ -21,6 +21,7 @@ class OTMClient {
         
         case session
         case studentLocation
+        case studentLocationOrderByUpdate
         case signUp
         
         var stringValue: String {
@@ -29,6 +30,8 @@ class OTMClient {
                 return Endpoints.base + "/session"
             case .studentLocation:
                 return Endpoints.base + "/StudentLocation"
+            case .studentLocationOrderByUpdate:
+                return Endpoints.base + "/StudentLocation?order=-updatedAt"
             case .signUp:
                 return "https://auth.udacity.com/sign-up?"
             }
@@ -53,21 +56,16 @@ class OTMClient {
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
           if error != nil {
-            print("login, error is not nil")
             completion(false, error)
           }
           let range = (5..<data!.count)
-          let newData = data?.subdata(in: range) /* subset response data! */
-            print(String(data: newData!, encoding: .utf8)!)
+            guard let newData = data?.subdata(in: range) else { return }
 
         let decoder = JSONDecoder()
             do {
-                //should add guard or if/let
-                let responseObject = try decoder.decode(LoginResponse.self, from: newData!)
-                print("response object is \(responseObject)")
+                let responseObject = try decoder.decode(LoginResponse.self, from: newData)
                 Auth.loginResponse = newData
                 Auth.sessionId = responseObject.session.id
-                print("successful login, session id is \(Auth.sessionId)")
                 completion(true, nil)
             } catch {
                 Auth.dataResponse = newData
@@ -78,7 +76,7 @@ class OTMClient {
     }
  
     class func logout(completion: @escaping () -> Void) {
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+        var request = URLRequest(url: OTMClient.Endpoints.session.url)
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
         let sharedCookieStorage = HTTPCookieStorage.shared
@@ -94,20 +92,17 @@ class OTMClient {
               return
           }
           let range = (5..<data!.count)
-          let newData = data?.subdata(in: range) /* subset response data! */
-          print(String(data: newData!, encoding: .utf8)!)
-            //Auth.loginResponse = newData
+          let newData = data?.subdata(in: range)
             Auth.sessionId = ""
-                print("logout call, sessionID is now \(Auth.sessionId)")
-                completion()
+            completion()
 
         }
         task.resume()
     }
     
     class func getStudentLocations(completion: @escaping ([StudentLocation], Error?) -> Void) {
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
-        //let request = Endpoints.studentLocation.url
+        
+        let request = URLRequest(url: Endpoints.studentLocationOrderByUpdate.url)
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
           if error != nil { // Handle error...
@@ -119,5 +114,5 @@ class OTMClient {
         }
         task.resume()
     }
-    
+        
 }
