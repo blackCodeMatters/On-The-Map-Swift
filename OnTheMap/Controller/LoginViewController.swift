@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: - Outlets
     @IBOutlet weak var emailTextField: UITextField!
@@ -17,12 +17,27 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    //MARK: - Variables and Constants
+    var activeTextField: UITextField?
+    
     //MARK: - Lifecycle methods
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setLoggingIn(false)
         emailTextField.text = ""
         passwordTextField.text = ""
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewDidLoad() {
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
     }
     
     //MARK: - Methods
@@ -32,7 +47,8 @@ class LoginViewController: UIViewController {
                 _ = OTMClient.getStudentLocations { (students, error) in
                 DataModel.students = students
                 }
-            self.performSegue(withIdentifier: "completeLogin", sender: nil)
+                self.setLoggingIn(false)
+                self.performSegue(withIdentifier: "completeLogin", sender: nil)
                 }
         } else {
             let decoder = JSONDecoder()
@@ -66,6 +82,38 @@ class LoginViewController: UIViewController {
         } else {
             activityIndicator.stopAnimating()
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeTextField = textField
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+            view.frame.origin.y = -100
+    }
+    
+    @objc func keyboardWillHide(_ notifcation:Notification) {
+        view.frame.origin.y = 0
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
     }
     
     //MARK: - Actions

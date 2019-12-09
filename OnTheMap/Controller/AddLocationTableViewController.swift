@@ -1,24 +1,21 @@
 //
-//  AddLocationViewController.swift
+//  AddLocationTableViewController.swift
 //  OnTheMap
 //
-//  Created by Dustin Mahone on 12/3/19.
+//  Created by Dustin Mahone on 12/9/19.
 //  Copyright © 2019 Dustin. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import MapKit
 
-class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
+class AddLocationTableViewController: UITableViewController, MKMapViewDelegate, UITextFieldDelegate {
 
     //MARK: - Outlets
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var webTextField: UITextField!
     @IBOutlet weak var findLocationButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var textFieldStackView: UIStackView!
-    @IBOutlet weak var finishStackView: UIStackView!
     @IBOutlet weak var alertTextView: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -44,7 +41,6 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
         webTextField.isHidden = !needsValidInput
         findLocationButton.isHidden = !needsValidInput
         mapView.isHidden = needsValidInput
-        finishStackView.isHidden = needsValidInput
     }
     
     func alertView(_ alertToShow: Bool, message: String) {
@@ -148,7 +144,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
             }
             return pinView
         }
-    
+    /*
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -180,7 +176,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
-    }
+    }*/
     
     //MARK: - Actions
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -200,7 +196,18 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
             DataModel.students = newStudent
         }
     }
+
     
+    // MARK: - Table view data source
+/*
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 1
+    }*/
+
 }
-
-

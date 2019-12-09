@@ -77,7 +77,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
     }
-    
+        
     //MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             
@@ -121,10 +121,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func refreshButtonPressed(_ sender: Any) {
         getStudentPins()
     }
-    
-    
-    
-    
 
 }
 

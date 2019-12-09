@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D917355E239EAADB001113C7 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */; };
 		D957A98F2394A6F900CE0B76 /* StudentLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */; };
 		D957A9912396D1A400CE0B76 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A9902396D1A400CE0B76 /* WebViewController.swift */; };
 		D957A9932396FDAF00CE0B76 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
 		D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationsViewController.swift; sourceTree = "<group>"; };
 		D957A9902396D1A400CE0B76 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */,
 				D957A9902396D1A400CE0B76 /* WebViewController.swift */,
 				D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */,
+				D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				D963226E23835DC80096DBB7 /* OTMClient.swift in Sources */,
 				D963225623830D6E0096DBB7 /* AppDelegate.swift in Sources */,
 				D957A98F2394A6F900CE0B76 /* StudentLocationsViewController.swift in Sources */,
+				D917355E239EAADB001113C7 /* AddLocationTableViewController.swift in Sources */,
 				D963225823830D6E0096DBB7 /* SceneDelegate.swift in Sources */,
 				D957A9912396D1A400CE0B76 /* WebViewController.swift in Sources */,
 				D963227423837E8D0096DBB7 /* LoginResponse.swift in Sources */,
