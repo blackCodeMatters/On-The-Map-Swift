@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D917355E239EAADB001113C7 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */; };
 		D957A98F2394A6F900CE0B76 /* StudentLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */; };
 		D957A9912396D1A400CE0B76 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A9902396D1A400CE0B76 /* WebViewController.swift */; };
 		D957A9932396FDAF00CE0B76 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */; };
@@ -27,7 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
 		D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationsViewController.swift; sourceTree = "<group>"; };
 		D957A9902396D1A400CE0B76 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +57,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D9173561239EDF65001113C7 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				D963225B23830D6E0096DBB7 /* Main.storyboard */,
+				D963226023830D6F0096DBB7 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		D9173562239EE0A1001113C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D963225523830D6E0096DBB7 /* AppDelegate.swift */,
+				D963225723830D6E0096DBB7 /* SceneDelegate.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D963224923830D6E0096DBB7 = {
 			isa = PBXGroup;
 			children = (
@@ -78,24 +94,22 @@
 		D963225423830D6E0096DBB7 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
-				D963226323830D6F0096DBB7 /* Info.plist */,
-				D963225523830D6E0096DBB7 /* AppDelegate.swift */,
-				D963225723830D6E0096DBB7 /* SceneDelegate.swift */,
 				D9E1D80C2388E06800E3B940 /* Model */,
 				D963226A23833A200096DBB7 /* Controller */,
-				D963226923830F460096DBB7 /* Assets */,
+				D9173561239EDF65001113C7 /* Storyboards */,
+				D9173562239EE0A1001113C7 /* View */,
+				D963226923830F460096DBB7 /* Resources */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
 		};
-		D963226923830F460096DBB7 /* Assets */ = {
+		D963226923830F460096DBB7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D963225B23830D6E0096DBB7 /* Main.storyboard */,
+				D963226323830D6F0096DBB7 /* Info.plist */,
 				D963225E23830D6F0096DBB7 /* Assets.xcassets */,
-				D963226023830D6F0096DBB7 /* LaunchScreen.storyboard */,
 			);
-			path = Assets;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D963226A23833A200096DBB7 /* Controller */ = {
@@ -106,7 +120,6 @@
 				D957A98E2394A6F900CE0B76 /* StudentLocationsViewController.swift */,
 				D957A9902396D1A400CE0B76 /* WebViewController.swift */,
 				D957A9922396FDAF00CE0B76 /* AddLocationViewController.swift */,
-				D917355D239EAADB001113C7 /* AddLocationTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -229,7 +242,6 @@
 				D963226E23835DC80096DBB7 /* OTMClient.swift in Sources */,
 				D963225623830D6E0096DBB7 /* AppDelegate.swift in Sources */,
 				D957A98F2394A6F900CE0B76 /* StudentLocationsViewController.swift in Sources */,
-				D917355E239EAADB001113C7 /* AddLocationTableViewController.swift in Sources */,
 				D963225823830D6E0096DBB7 /* SceneDelegate.swift in Sources */,
 				D957A9912396D1A400CE0B76 /* WebViewController.swift in Sources */,
 				D963227423837E8D0096DBB7 /* LoginResponse.swift in Sources */,
@@ -378,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KHTC3WZ3S9;
-				INFOPLIST_FILE = OnTheMap/Info.plist;
+				INFOPLIST_FILE = OnTheMap/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,7 +408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KHTC3WZ3S9;
-				INFOPLIST_FILE = OnTheMap/Info.plist;
+				INFOPLIST_FILE = OnTheMap/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

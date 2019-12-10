@@ -63,6 +63,7 @@ class StudentLocationsViewController: UIViewController {
     }
     
     //MARK: - Actions
+    
     @IBAction func logoutButtonPressed(_ sender: Any) {
         OTMClient.logout {
             DispatchQueue.main.async {

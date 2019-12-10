@@ -77,6 +77,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
     func validateUrl() {
         if webTextField.text != "" {
             self.mediaURL = webTextField.text!
+            alertView(false, message: "")
             needsValidInput(false)
             showPin()
         } else {
@@ -90,7 +91,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
         var request = URLRequest(url: OTMClient.Endpoints.studentLocation.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Lois\", \"lastName\": \"Pewterschmidt\",\"mapString\": \"Providence, RI\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: .utf8)
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Everyman\",\"mapString\": \"Washington, DC\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: .utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
           if error != nil {
@@ -109,7 +110,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
     
     private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         // Based on Forward Geocoding tutorial on cocoacasts.com by Bart Jacobs
-        alertView(false, message: "        Checking Location")
+        alertView(true, message: "        Checking Location")
         if error != nil {
             alertView(true, message: "        Unable to Find Location")
 
@@ -125,6 +126,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
                 self.latitude = coordinate.latitude
                 self.longitude = coordinate.longitude
                 validateUrl()
+                
             } else {
                 alertView(true, message: "        No Matching Location Found")
             }
@@ -155,31 +157,9 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        alertView(false, message: "")
         self.activeTextField = textField
         self.webTextField.text = "http://"
-    }
-    
-    func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(_ notification:Notification) {
-        view.frame.origin.y = -150
-    }
-    
-    @objc func keyboardWillHide(_ notifcation:Notification) {
-        view.frame.origin.y = 0
-    }
-    
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        return keyboardSize.cgRectValue.height
     }
     
     //MARK: - Actions
@@ -193,6 +173,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             self.processResponse(withPlacemarks: placemarks, error: error)
         }
+        self.view.endEditing(true)
     }
     
     @IBAction func finishButtonPressed(_ sender: Any) {

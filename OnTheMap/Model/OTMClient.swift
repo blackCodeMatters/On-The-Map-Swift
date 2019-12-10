@@ -29,7 +29,7 @@ class OTMClient {
             case .session:
                 return Endpoints.base + "/session"
             case .studentLocation:
-                return Endpoints.base + "/StudentLocation"
+                return Endpoints.base + "/StudentLocation?limit=100"
             case .studentLocationOrderByUpdate:
                 return Endpoints.base + "/StudentLocation?order=-updatedAt"
             case .signUp:
