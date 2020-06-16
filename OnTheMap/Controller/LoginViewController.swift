@@ -30,8 +30,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidLoad() {
-        self.emailTextField.delegate = self
-        self.passwordTextField.delegate = self
+        super.viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {

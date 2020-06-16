@@ -50,7 +50,7 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
     func alertView(_ alertToShow: Bool, message: String) {
         alertTextView.isHidden = !alertToShow
         activityIndicator.isHidden = !alertToShow
-        if alertToShow == true {
+        if alertToShow {
             activityIndicator.startAnimating()
             alertTextView.text = message
         } else {
@@ -84,35 +84,13 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
             alertView(true, message: "        Please enter a URL")
         }
     }
-        
-    func postStudentLocation(mediaURL: String, latitude: Double, longitude: Double, completion: @escaping ([StudentLocation], Error?) -> Void) {
-        
-        alertView(true, message: "        Uploading Data")
-        var request = URLRequest(url: OTMClient.Endpoints.studentLocation.url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Everyman\",\"mapString\": \"Washington, DC\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: .utf8)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-          if error != nil {
-            DispatchQueue.main.async {
-                self.alertView(true, message: error as! String)
-            }
-          } else {
-            DispatchQueue.main.async {
-                self.alertView(false, message: "")
-                self.dismiss(animated: true, completion: nil)
-                }
-            }
-        }
-        task.resume()
-    }
+
     
     private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         // Based on Forward Geocoding tutorial on cocoacasts.com by Bart Jacobs
         alertView(true, message: "        Checking Location")
         if error != nil {
-            alertView(true, message: "        Unable to Find Location")
+            alertView(false, message: "")
 
         } else {
             var location: CLLocation?
@@ -126,12 +104,12 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
                 self.latitude = coordinate.latitude
                 self.longitude = coordinate.longitude
                 validateUrl()
-                
             } else {
                 alertView(true, message: "        No Matching Location Found")
             }
         }
     }
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             
@@ -177,8 +155,19 @@ class AddLocationViewController: UIViewController, MKMapViewDelegate, UITextFiel
     }
     
     @IBAction func finishButtonPressed(_ sender: Any) {
-        postStudentLocation(mediaURL: mediaURL, latitude: latitude, longitude: longitude) { (newStudent, error) in
-            DataModel.students = newStudent
+        alertView(true, message: "        Uploading Data")
+        OTMClient.postStudentLocation(mediaURL: mediaURL, latitude: latitude, longitude: longitude) { (error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    let errorMsg = error
+                    self.alertView(true, message: "        \(errorMsg)")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.alertView(false, message: "")
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     

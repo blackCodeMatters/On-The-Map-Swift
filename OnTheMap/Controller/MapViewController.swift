@@ -19,6 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: - Lifecycle methods
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         checkFetch(message: "        Fetching Data")
         getStudentPins()
     }

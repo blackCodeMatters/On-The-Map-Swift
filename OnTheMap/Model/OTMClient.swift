@@ -114,5 +114,22 @@ class OTMClient {
         }
         task.resume()
     }
+    
+    class func postStudentLocation(mediaURL: String, latitude: Double, longitude: Double, completion: @escaping (Error?) -> Void) {
+        
+        var request = URLRequest(url: Endpoints.studentLocation.url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Jane\", \"lastName\": \"Doe\",\"mapString\": \"Orlando, FL\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: .utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(error)
+          } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
         
 }
